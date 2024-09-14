@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "设备",
+  "usingComponents": {
+    "uni-section": "/components/uni-section/uni-section",
+    "uni-card": "/uni_modules/uni-card/components/uni-card/uni-card"
+  }
+}

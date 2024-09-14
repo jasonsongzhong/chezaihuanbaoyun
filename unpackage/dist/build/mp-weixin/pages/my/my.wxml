@@ -1,0 +1,18 @@
+<view class="about">
+  <view class="content">
+    <view class="logo" hover-class="{{!login?'logo-hover':''}}">
+      <image class="logo-img" src="{{avatarUrl}}"></image>
+      <view class="logo-title"><text class="uer-name">{{"欢迎您 "+realname+"！"}}</text></view>
+    </view>
+    <view class="center-list">
+      <view data-event-opts="{{[['tap',[['pass',['$event']]]]]}}" class="center-list-item" bindtap="__e"><text class="list-icon"></text><text class="list-text">修改密码</text><text class="navigat-arrow"></text></view>
+    </view>
+    <view class="center-list"></view>
+    <view class="center-list">
+      <view data-event-opts="{{[['tap',[['about',['$event']]]]]}}" class="center-list-item" bindtap="__e"><text class="list-icon"></text><text class="list-text">关于</text><text class="navigat-arrow"></text></view>
+    </view>
+    <block wx:if="{{!this.ent}}"><button class="primary" type="primary" data-event-opts="{{[['tap',[['bindLogin',['$event']]]]]}}" bindtap="__e">登录</button></block>
+    <block wx:if="{{this.ent}}"><button type="default" data-event-opts="{{[['tap',[['bindLogout',['$event']]]]]}}" bindtap="__e">退出登录</button></block>
+  </view>
+  <luna-upgrade class="vue-ref" vue-id="704e9d00-1" url="{{url}}" notes="{{notes}}" data-ref="showtip" bind:__l="__l"></luna-upgrade>
+</view>

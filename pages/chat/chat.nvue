@@ -1,0 +1,330 @@
+<template>
+	<view class="page" :style="{height:wHeight+'px'}">
+		<list @touchstart="touchList" :show-scrollbar="false"
+			:style="{height:chatListHeight+'px'}">
+			<cell v-for="(data,index) in msgList" :key="index">
+				<msg :data="data" :self="mineId==data.fromId" ref="msg"></msg>
+			</cell>
+			<cell v-if="msgList.length===0">
+				<text class="null">- 暂无聊天记录 -</text>
+			</cell>
+		</list>
+		<view class="inputBox" @click="stop">
+			<!-- <text class="ico voice">语音</text> -->
+			<view class="textarea-box">
+				<textarea v-model="text"
+					@input="input" 
+					return-key-type="send" 
+					:singleline="true" 
+					@linechange="linechange" 
+					:style="{height:textareaHeight+'px'}" 
+					:show-confirm-bar="false" 
+					maxlength="100" 
+					class="textarea"
+					@focus="focus"
+					:adjust-position="false"
+				/>
+			</view>
+			<text @click="send" class="ico send">发送</text>
+			<!-- <uni-icons @click="sendImg" type="camera-filled" size="26"></uni-icons> 待续 -->
+		</view>
+	</view>
+</template>
+
+<script>
+	const dom = weex.requireModule('dom') || {};
+	import sql from '@/common/sql.js'
+	export default {
+		computed:{
+			chatListHeight(){
+				return this.wHeight - this.keyboardHeight- 66 - (this.textareaHeight -36)
+			}
+		},
+		watch: {
+			msgList(newValue, oldValue) {
+			}
+		},
+		data() {
+			return {
+				msgList:[],
+				currentUserId:false,//正在聊的用户id		
+				mineId:false,
+				keyboardHeight:0,
+				text:"",
+				wHeight:"",
+				textareaHeight:26,
+			}
+		},
+		created() {
+			this.wHeight = uni.getSystemInfoSync().windowHeight
+			uni.onKeyboardHeightChange(({height})=>{
+				console.log(height);
+				this.keyboardHeight = height
+			})
+		},
+		async onLoad({currentUserId,mineId,username}) {
+			this.currentUserId = currentUserId
+			this.mineId = mineId
+			if(username){
+				uni.setNavigationBarTitle({
+					title:username
+				})
+			}
+			//标已读
+			let aa = await sql.executeSql(`UPDATE msg SET "isRead" = 1 WHERE "fromId" = "${currentUserId}"`);
+			console.log(aa);
+			console.log({currentUserId,mineId});
+			await this.getUnReadNum()//设置 左上角未读消息数 数量
+			
+			//加载消息
+			this.getNewMsg()//
+			
+			//收到消息后处理
+			uni.$on('handlePush',async ({payload})=>{
+				if(payload.fromId==this.currentUserId){
+					this.msgList.push({
+						text:payload.text,
+						toId:payload.toId,
+						fromId:payload.fromId,
+						timestamp:payload.timestamp,
+						isRead:1
+					})
+					this.showLast()
+					//更新用户列表上的时间与消息内容
+					let res = await sql.executeSql(`
+						UPDATE 
+							"userList"
+						SET 
+							"num" = 0,
+							"text" = "${payload.text}",
+							"timestamp" = ${payload.timestamp}
+						WHERE 
+							"_id" = "${payload.fromId}"
+					`);
+				}else{
+					await this.getUnReadNum()//设置 左上角未读消息数 数量
+				}
+			})
+			//获取当前对话用户昵称  调试使用
+			/* uniCloud.callFunction({
+				name:'uchat',
+				data:{
+					route:"getUserName",
+					where:{_id:this.currentUserId}
+				},
+				success:({result:{code,data}})=>{
+					console.log(code);
+					if(code!=1000){
+						uni.navigateTo({url:'/pages/login/login'})
+						return false
+					}
+					uni.setNavigationBarTitle({
+						title:data
+					})
+				},
+				fail(err) {
+						uni.showModal({
+							title: 'err',
+							content: JSON.stringify(err),
+							showCancel: false
+						});
+				}
+			}) */
+		},
+		methods: {
+			async getNewMsg(){
+				let {data} = await sql.selectSql(`select * from msg WHERE 
+					("fromId" = "${this.currentUserId}" AND "toId" = "${this.mineId}") 
+					OR 
+					("toId" = "${this.currentUserId}" AND "fromId" = "${this.mineId}") 
+					ORDER BY "timestamp" DESC
+				`);
+				console.log('getNewMsg',data,this.mineId,this.currentUserId);
+				this.msgList = data.reverse()
+				this.showLast(false)
+			},
+			touchList(){
+				uni.hideKeyboard()
+			},
+			input(){
+				if(uni.getSystemInfoSync().platform == "ios" && this.text.indexOf("\n") >= 0) {
+					console.log( "中有\n");
+					this.text = this.text.substring(0,this.text.length-2);
+					if(this.text) this.send()
+				}
+			},
+			async send(){
+				if(!this.text) return false;
+				const text = this.text
+				uniCloud.callFunction({
+					name:'uchat',
+					data:{
+						route:"sendMsg",
+						text,
+						userInfo:uni.getStorageSync("userInfo"),
+						toId:this.currentUserId,
+					},
+					success:async ({result:{code,data}})=>{
+						console.log(code);
+						if(!uni.getStorageSync('userInfo')){
+							uni.navigateTo({url:'/pages/login/login'})
+							return false
+						}
+						if(data.code==20001){
+							uni.showModal({
+								title: '错误',
+								content: e.result.msg+"或对方没在云打包或自定义的基座运行",
+								showCancel: false,
+								confirmText: '关闭'
+							});
+							return false
+						}
+						//更新用户列表上的时间与消息内容
+						let res = await sql.executeSql(`
+							UPDATE 
+								"userList"
+							SET 
+								"num" = 0,
+								"text" = "${text}",
+								"timestamp" = ${Date.now()}
+							WHERE 
+								"_id" = "${this.currentUserId}"
+						`);
+					},
+					fail(err) {
+							uni.showModal({
+								title: 'err',
+								content: JSON.stringify(err),
+								showCancel: false
+							});
+					}
+				})
+				this.msgList.push({
+					text:this.text,
+					toId:this.currentUserId,
+					fromId:this.mineId,
+					timestamp:Date.now()
+				})
+				let a = await sql.executeSql([
+					"create table if not exists msg('isRead' INTEGER,'fromId' CHAR(32),'toId' CHAR(32),'text' VARCHAR(255),'timestamp' INTEGER)",
+					"insert into msg values(1,'"+this.mineId+"','"+this.currentUserId+"','"+this.text+"','"+Date.now()+"')",
+				]);
+				console.log(a);
+				
+				this.$nextTick(()=>{
+					this.text = ''
+					this.textareaHeight = 26
+				})
+				this.showLast()
+			},
+			async getUnReadNum(){ //设置 左上角未读消息数 数量
+				let {data:[data]} = await sql.selectSql(`
+					select  count(*) as num
+					from msg
+					WHERE isRead = 0
+				`);
+				if(!data){
+					return false
+				}
+				let num = data.num
+				console.log(num);
+				
+				plus.webview.currentWebview().setTitleNViewButtonStyle(0, {
+					text: num !== 0?num:"",
+				});
+			},
+			showLast(animated=true){
+				if(this.msgList.length){
+					this.$nextTick(()=>{
+						setTimeout(()=>{
+							const target = this.$refs.msg[this.msgList.length-1];
+							dom.scrollToElement(target, {animated});/* ,offset:0 */
+						},100)
+					})
+				}
+			},
+			linechange(e){
+				//console.log(e.detail);
+				let {height,lineCount} = e.detail
+				
+				//console.log(height,lineCount);
+				
+				if(lineCount===1){
+					this.textareaHeight = 26
+				}
+				if(lineCount!==1&&height<=100){
+					console.log('来来来1');
+					this.textareaHeight = height
+				}
+			},
+			focus(e){
+				//console.log(e.detail.height);
+				//this.keyboardHeight = e.detail.height
+			},
+			stop(event){
+				event.stopPropagation();
+			}
+		},
+		beforeDestroy() {
+			//uni.$off('handlePush')
+		},
+		onNavigationBarButtonTap() {
+			uni.navigateBack()
+		}
+	}
+</script>
+
+<style lang="scss">
+.page{
+	background-color: #F1F1F1;
+}
+.inputBox{
+	flex-direction: row;
+	padding:6px 20rpx;
+	justify-content: center;
+	align-items: center;
+	border-top-width: 1rpx;
+	border-top-style: solid;
+	border-top-color:#BBBBBB;
+	//height: 66px;
+}
+.textarea-box{
+	background-color: #FFFFFF;
+	padding:20rpx;
+	width: 600rpx;
+	border-radius: 10px;
+}
+.textarea{
+	width: 580rpx;
+	padding: 0;
+	line-height: 42px;
+	background-color: #FFFFFF;
+	color: #666666;
+	//padding: 20rpx;
+	font-size: 32rpx;
+	border-radius: 10px;
+}
+.ico{
+	margin:10rpx 16rpx;
+	height: 30px;
+	line-height: 30px;
+}
+.voice{
+	//background-color: #2C405A;
+}
+.send{
+	background-color: #4CD964;
+	padding: 0 18rpx;
+	color: #FFFFFF;
+	font-size: 30rpx;
+	border-radius: 6px;
+}
+.null{
+	width: 750rpx;
+	height: 100px;
+	line-height: 100px;
+	font-size: 26rpx;
+	text-align: center;
+	color: #999999;
+}
+</style>

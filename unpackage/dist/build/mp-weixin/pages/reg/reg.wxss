@@ -1,0 +1,2 @@
+page{background-color:#000;color:#fff}.action-row{display:flex;flex-direction:row;justify-content:center}.action-row navigator{color:#007aff;padding:0 10px}.container{padding:30px}.title{text-align:center;font-size:20px;padding:20px 0}.desc{padding:10px 0;font-size:14px;line-height:22px;color:#999}.login-form input{height:40px;border:solid 1px #ddd;text-indent:10px}.login-form input,
+.login-form button{width:100%;margin-bottom:10px}

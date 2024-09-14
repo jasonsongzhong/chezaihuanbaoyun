@@ -1,0 +1,43 @@
+.box {
+  width: 750rpx;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 0 16rpx;
+  margin: 16rpx 0;
+  /* border-style: solid;
+	border-width: 1px;
+	border-color: #2C405A; */
+}
+.avatarUrl {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 10px;
+}
+.content {
+  margin: 0 16rpx;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.username {
+  font-size: 26rpx;
+  color: #666666;
+  margin: 8rpx 0;
+}
+.text {
+  padding: 28rpx;
+  border-radius: 10px;
+  font-size: 32rpx;
+  line-height: 20px;
+  justify-content: space-between;
+  background-color: #FFFFFF;
+}
+.selfText {
+  background-color: #4CD964;
+}
+.exceed {
+  width: 500rpx;
+}
+.self {
+  flex-direction: row-reverse;
+}
+

@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "数据展示",
+  "usingComponents": {
+    "u-subsection": "/uni_modules/uview-ui/components/u-subsection/u-subsection",
+    "uni-notice-bar": "/uni_modules/uni-notice-bar/components/uni-notice-bar/uni-notice-bar",
+    "refresh": "/components/refresh",
+    "nav-tab": "/components/navTab",
+    "click-circle": "/components/clickCircle",
+    "tab-bar4": "/components/tabBar4",
+    "uni-nav-bar": "/uni_modules/uni-nav-bar/components/uni-nav-bar/uni-nav-bar"
+  }
+}

@@ -1,0 +1,12 @@
+view,
+label,
+swiper-item,
+scroll-view{display:flex;flex-direction:column;flex-shrink:0;flex-grow:0;flex-basis:auto;align-items:stretch;align-content:flex-start}view,
+image,
+input,
+scroll-view,
+swiper,
+swiper-item,
+text,
+textarea,
+video{position:relative;border:0 solid #000;box-sizing:border-box}swiper-item{position:absolute}button{margin:0}.page{background-color:#f1f1f1}.inputBox{flex-direction:row;padding:6px 20rpx;justify-content:center;align-items:center;border-top-width:1rpx;border-top-style:solid;border-top-color:#bbb}.textarea-box{background-color:#fff;padding:20rpx;width:600rpx;border-radius:10px}.textarea{width:580rpx;padding:0;line-height:42px;background-color:#fff;color:#666;font-size:32rpx;border-radius:10px}.ico{margin:10rpx 16rpx;height:30px;line-height:30px}.send{background-color:#4cd964;padding:0 18rpx;color:#fff;font-size:30rpx;border-radius:6px}.null{width:750rpx;height:100px;line-height:100px;font-size:26rpx;text-align:center;color:#999}

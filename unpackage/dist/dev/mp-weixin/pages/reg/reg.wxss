@@ -1,0 +1,39 @@
+
+page{
+	background-color: #000000;
+	color: #ffffff;
+}
+.action-row {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+.action-row navigator {
+	color: #007aff;
+	padding: 0 10px;
+}
+.container {
+	padding: 30px;
+}
+.title {
+	text-align: center;
+	font-size: 20px;
+	padding: 20px 0px;
+}
+.desc {
+	padding: 10px 0px;
+	font-size: 14px;
+	line-height: 22px;
+	color: #999999;
+}
+.login-form input {
+	height: 40px;
+	border: solid 1px #DDDDDD;
+	text-indent: 10px;
+}
+.login-form input,
+.login-form button {
+	width: 100%;
+	margin-bottom: 10px;
+}
+

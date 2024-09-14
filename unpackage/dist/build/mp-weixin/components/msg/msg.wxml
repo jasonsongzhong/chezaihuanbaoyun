@@ -1,0 +1,1 @@
+<view class="{{['box',(self)?'self':'']}}"><image class="avatarUrl" src="{{data.avatarUrl||avatarUrl}}" mode="widthFix"></image><view data-event-opts="{{[['longpress',[['copy',['$event']]]]]}}" class="content" bindlongpress="__e"><block wx:if="{{self}}"><text class="username">{{data.username||"我自己"}}</text></block><text class="{{[textClass]}}">{{data.text}}</text></view></view>

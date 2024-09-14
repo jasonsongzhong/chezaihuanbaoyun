@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "设备列表",
+  "enablePullDownRefresh": false,
+  "navigationBarBackgroundColor": "#000000",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "u-swiper": "/uni_modules/uview-ui/components/u-swiper/u-swiper",
+    "uni-title": "/uni_modules/uni-title/components/uni-title/uni-title",
+    "uni-tag": "/uni_modules/uni-tag/components/uni-tag/uni-tag"
+  }
+}

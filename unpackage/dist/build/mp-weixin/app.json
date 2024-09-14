@@ -1,0 +1,48 @@
+{
+  "pages": [
+    "pages/my/my",
+    "pages/login/login",
+    "pages/reg/reg",
+    "pages/equipment/equipment",
+    "pages/gasdata/gasdata",
+    "pages/index/index",
+    "pages/data/data",
+    "pages/datasView/datasView",
+    "pages/devs/devs",
+    "pages/info/info",
+    "pages/list/index",
+    "pages/chat/chat",
+
+    "pages/message/message",
+    "pages/gasdata/test",
+    "pages/gasdata/history"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "麦越环境",
+    "navigationBarBackgroundColor": "#000000",
+    "backgroundColor": "#000000"
+  },
+  "tabBar": {
+    "borderStyle": "black",
+    "backgroundColor": "#333",
+    "color": "#8F8F94",
+    "selectedColor": "#f33e54",
+    "list": [
+      {
+        "pagePath": "pages/equipment/equipment",
+        "iconPath": "static/img/tabbar/equipment.png",
+        "selectedIconPath": "static/img/tabbar/equipmentactive.png",
+        "text": "设备"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "iconPath": "static/img/tabbar/me.png",
+        "selectedIconPath": "static/img/tabbar/meactive.png",
+        "text": "我"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

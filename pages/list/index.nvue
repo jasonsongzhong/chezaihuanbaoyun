@@ -1,0 +1,177 @@
+<template>
+	<list class="msgList">
+		<header>
+			<uni-notice-bar showIcon
+				text="下拉可刷新好友列表，限列表的好友互发送消息。"
+			></uni-notice-bar>
+		</header>
+		<cell v-for="(item,key) in userList" :key="key">
+			<user v-if="mineId!=item._id"
+				:item="item"
+				@click.native="toChat(item._id,item.username)"
+			></user>
+		</cell>
+	</list>
+</template>
+<script>
+	import sql from '@/common/sql.js'
+	export default {
+		computed:{},
+		watch:{},
+		data(){
+			return {
+				userList:[],
+				currentUserId:false,
+				mineId:false
+			}
+		},
+		onNavigationBarButtonTap() {
+			uni.navigateTo({
+				url: '/pages/login/login',
+				success: res => {},
+				fail: () => {},
+				complete: () => {}
+			});
+		},
+		async onLoad() {
+			//加载好友列表
+			let userList = await this.getUserList();
+			console.log(userList);
+			//加载云端好友列表 合并本地没有的
+			await this.getCloudUserList()
+		},
+		created() {
+			uni.$on('handlePush',async ({payload})=>{
+				console.log('来消息了',payload);
+				//插到内存
+				let isRead = payload.fromId==this.currentUserId?1:0;
+				let aa = await sql.executeSql([
+					"create table if not exists msg('isRead' INTEGER,'fromId' CHAR(32),'toId' CHAR(32),'text' VARCHAR(255),'timestamp' INTEGER)",
+					"insert into msg values("+isRead+",'"+payload.fromId+"','"+payload.toId+"','"+payload.text+"','"+payload.timestamp+"')",
+				]);
+				await this.updateMsgList()
+			})
+			uni.$on('toChat',({currentUserId,username})=>{
+				this.toChat(currentUserId,username)
+			})
+			uni.$on('getCloudUserList',async ()=>{
+				console.log('getCloudUserList');
+				await this.getCloudUserList()
+			})
+		},
+		beforeDestroy() {
+			console.log('beforeDestroy');
+			uni.$off('handlePush')
+			uni.$off('toChat')
+			uni.$off('getCloudUserList')
+		},
+		async onShow() {
+			this.mineId = uni.getStorageSync("userInfo").uid
+			this.currentUserId = false
+			this.updateMsgList()
+		},
+		async onPullDownRefresh() {
+			await this.getCloudUserList()
+			uni.stopPullDownRefresh()
+		},
+		methods: {
+			async updateMsgList(){
+				let {data} = await sql.selectSql(`
+					select timestamp,text,fromId,count(fromId) as num
+					from msg
+					WHERE isRead = 0
+					GROUP BY fromId
+				`);
+				
+				console.log(data);
+				
+				//先全部归零
+				await sql.executeSql('UPDATE userList SET "num" = 0');
+				//将对应的打上 数字 内容 时间
+				data.forEach( async({num,fromId,text,timestamp})=>{
+					console.log(text,num);
+					let res = await sql.executeSql(`
+						UPDATE 
+							"userList"
+						SET 
+							"num" = ${num},
+							"text" = "${text}",
+							"timestamp" = ${timestamp}
+						WHERE 
+							"_id" = "${fromId}"
+					`);
+				})
+				await this.getUserList();
+				if(data.length>0&&this.currentUserId!=false){
+					uni.vibrateLong();
+				}
+			},
+			toChat(currentUserId,username){
+				this.currentUserId = currentUserId
+				uni.navigateTo({
+					url:'/pages/chat/chat?currentUserId='+currentUserId+"&mineId="+this.mineId+"&username="+username
+				})
+			},
+			async getUserList(){
+				return new Promise( async(callback)=>{
+					let {data:userList} = await sql.selectSql('select * from "userList" ORDER BY timestamp DESC');
+					this.userList = userList;
+					callback(userList);
+				})
+			},
+			async getCloudUserList(){
+				//加载云端好友列表 合并本地没有的
+				return new Promise( async(callback)=>{
+					uniCloud.callFunction({
+						name:'uchat',
+						data:{
+							route:"getUser",
+						},
+						success:({result:{code,data}})=>{
+							console.log(code);
+							if(!uni.getStorageSync('userInfo')){
+								callback(data);
+								uni.navigateTo({url:'/pages/login/login'})
+								return false
+							}
+							
+							data.forEach(async (user)=>{
+								let {data:userData} = await sql.selectSql(`
+									select * from userList WHERE "_id" = "${user._id}"
+								`);
+								if(!userData.length){
+									user.text		= "暂无消息";
+									user.timestamp 	= Date.now();
+									user.num		= 0;
+
+									this.userList.push(user)	//列表增加数据
+									//数据库增加该记录
+									await sql.executeSql([					//编号，手机号/用户名，最后一次消息内容，最后一次会话时间，未读数量
+										"create table if not exists userList('_id' CHAR(32),'username' VARCHAR(255),'text' VARCHAR(255),'timestamp' INTEGER,'num' INTEGER)",
+										"insert into userList values('"+user._id+"','"+user.username+"','"+user.text+"','"+user.timestamp+"','"+user.num+"')",
+									]);
+								}
+							})
+							callback(data);
+						},
+						fail(err) {
+								uni.showModal({
+									title: 'err',
+									content: JSON.stringify(err),
+									showCancel: false
+								});
+								callback();
+						}
+					})
+				})
+				 
+			}
+		}
+	}
+</script>
+<style scoped lang="scss">
+	.msgList{
+		width: 750rpx;
+		flex: 1;
+	}
+</style>

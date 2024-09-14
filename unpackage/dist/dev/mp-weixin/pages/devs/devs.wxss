@@ -1,0 +1,20 @@
+
+.swiper-pic {
+	width: 100%;
+	white-space: nowrap;
+	line-height: 100%;
+	height: 100%;
+	border-bottom: 1px solid #c8c7cc;
+}
+
+/* 将这组幻灯片中的子项目改成我们设计图中的灰色 */
+.swiper-item {
+	background-color: #f8f8f8;
+}
+.uni-media-list-body {
+	height: auto;
+}
+.uni-media-list-text-top {
+	line-height: 1.6em;
+}
+

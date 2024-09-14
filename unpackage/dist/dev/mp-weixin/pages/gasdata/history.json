@@ -1,0 +1,13 @@
+{
+  "navigationBarTitleText": "历史记录",
+  "enablePullDownRefresh": false,
+  "navigationBarBackgroundColor": "#000000",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "qiun-data-charts": "/uni_modules/qiun-data-charts/components/qiun-data-charts/qiun-data-charts",
+    "uni-table": "/uni_modules/uni-table/components/uni-table/uni-table",
+    "uni-tr": "/uni_modules/uni-table/components/uni-tr/uni-tr",
+    "uni-th": "/uni_modules/uni-table/components/uni-th/uni-th",
+    "uni-td": "/uni_modules/uni-table/components/uni-td/uni-td"
+  }
+}

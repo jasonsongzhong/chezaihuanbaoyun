@@ -1,0 +1,30 @@
+diff a/pages/login/login.vue b/pages/login/login.vue	(rejected hunks)
+@@ -181,15 +181,17 @@
+ 					// dataType: JSON,
+ 					success: (res) => {
+ 						uni.hideLoading()
+-						console.log(res.data.devs);
++						console.log(res.data);
+ 						if (res.data.status == 200) {
+ 							this.needCaptcha = false;
+ 							// uni.setStorageSync('uni-needCaptcha', this.needCaptcha)
+-console.log(res.data.devs)
++							console.log(res.data.devs)
+ 							uni.setStorageSync('uni_id_token', res.data.accesstoken)
+ 							uni.setStorageSync('username', res.data.username)
++							uni.setStorageSync('realname', res.data.realname)
+ 							uni.setStorageSync('login_type', 'online')
+ 							uni.setStorageSync('uni_id_has_pwd', true)
++							// uni.setStorageSync('userInfo', true)
+ 							// uni.setStorageSync('last_login_ip', res.data.userInfo.last_login_ip)
+ 							// this.toMain(this.username);
+ 							// uni.setStorageSync('token', res.result.token)
+@@ -212,7 +214,7 @@
+ 								content: res.data.errMsg,
+ 								showCancel: false
+ 							})
+-
++							// uni.setStorageSync('ent', false)
+ 							this.needCaptcha = false;
+ 							uni.setStorageSync('uni-needCaptcha', this.needCaptcha)
+ 							if (this.needCaptcha) {

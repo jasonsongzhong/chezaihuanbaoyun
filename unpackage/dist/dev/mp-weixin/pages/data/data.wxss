@@ -1,0 +1,506 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.uni-section.data-v-5584ec96 {
+  position: relative;
+  display: flex;
+  margin-top: 10px;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 10px;
+  height: 50px;
+  background-color: #f8f8f8;
+  font-weight: normal;
+}
+.uni-section.data-v-5584ec96:after {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 1px;
+  content: '';
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+  background-color: #c8c7cc;
+}
+.uni-section__head.data-v-5584ec96 {
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+.line.data-v-5584ec96 {
+  height: 15px;
+  background-color: #c0c0c0;
+  border-radius: 5px;
+  width: 3px;
+}
+.circle.data-v-5584ec96 {
+  width: 8px;
+  height: 8px;
+  border-top-right-radius: 50px;
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  background-color: #c0c0c0;
+}
+.uni-section__content.data-v-5584ec96 {
+  flex-direction: column;
+  flex: 1;
+  color: #333;
+}
+.uni-section__content-title.data-v-5584ec96 {
+  font-size: 28rpx;
+  color: #333;
+}
+.distraction.data-v-5584ec96 {
+  flex-direction: row;
+  align-items: center;
+}
+.uni-section__content-sub.data-v-5584ec96 {
+  font-size: 24rpx;
+  color: #999;
+}
+
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.uni-card {
+  margin: 10px;
+  padding: 0 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
+  background-color: #fff;
+  flex: 1;
+}
+.uni-card .uni-card__cover {
+  position: relative;
+  margin-top: 10px;
+  flex-direction: row;
+  overflow: hidden;
+  border-radius: 4px;
+}
+.uni-card .uni-card__cover .uni-card__cover-image {
+  flex: 1;
+  vertical-align: middle;
+}
+.uni-card .uni-card__header {
+  display: flex;
+  border-bottom: 1px #EBEEF5 solid;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  overflow: hidden;
+}
+.uni-card .uni-card__header .uni-card__header-box {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  overflow: hidden;
+}
+.uni-card .uni-card__header .uni-card__header-avatar {
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+.uni-card .uni-card__header .uni-card__header-avatar .uni-card__header-avatar-image {
+  flex: 1;
+  width: 40px;
+  height: 40px;
+}
+.uni-card .uni-card__header .uni-card__header-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  overflow: hidden;
+}
+.uni-card .uni-card__header .uni-card__header-content .uni-card__header-content-title {
+  font-size: 15px;
+  color: #3a3a3a;
+}
+.uni-card .uni-card__header .uni-card__header-content .uni-card__header-content-subtitle {
+  font-size: 12px;
+  margin-top: 5px;
+  color: #909399;
+}
+.uni-card .uni-card__header .uni-card__header-extra {
+  line-height: 12px;
+}
+.uni-card .uni-card__header .uni-card__header-extra .uni-card__header-extra-text {
+  font-size: 12px;
+  color: #909399;
+}
+.uni-card .uni-card__content {
+  padding: 10px;
+  font-size: 14px;
+  color: #6a6a6a;
+  line-height: 22px;
+}
+.uni-card .uni-card__actions {
+  font-size: 12px;
+}
+.uni-card--border {
+  border: 1px solid #EBEEF5;
+}
+.uni-card--shadow {
+  position: relative;
+  box-shadow: 0 0px 6px 1px rgba(165, 165, 165, 0.2);
+}
+.uni-card--full {
+  margin: 0;
+  border-left-width: 0;
+  border-left-width: 0;
+  border-radius: 0;
+}
+.uni-card--full:after {
+  border-radius: 0;
+}
+.uni-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+.datatime {
+	display: flex;
+	height: 50rpx;
+	background: #ffffff;
+	padding: 0rpx;
+}
+.end-title {
+	display: flex;
+	height: 50rpx;
+	background: #d2eb8f;
+	padding: 0rpx;
+}
+.end-title view {
+	flex-grow: 1;
+	text-align: center;
+}
+.end-cont {
+	display: none;
+	background: #C8C7CC;
+}
+.btna {
+	color: #FFFFFF;
+	background: #00A0FF;
+	height: 50rpx;
+}
+.dis {
+	display: block;
+}
+.data-body {
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	padding: 0;
+	font-size: 18rpx;
+	background-color: #ffffff;
+}
+.swiper-pic {
+	width: 100%;
+	white-space: nowrap;
+	line-height: 100%;
+	height: 100%;
+	border-bottom: 1px solid #c8c7cc;
+}
+
+/* 将这组幻灯片中的子项目改成我们设计图中的灰色 */
+.swiper-item {
+	background-color: #f8f8f8;
+}
+.uni-media-list-body {
+	height: auto;
+}
+.uni-media-list-text-top {
+	line-height: 1.6em;
+}
+
+/* 头条小程序组件内不能引入字体 */
+page {
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+	background-color: #efeff4;
+	min-height: 100%;
+	height: auto;
+}
+view {
+	font-size: 28rpx;
+	line-height: inherit;
+}
+.example {
+	padding: 0 30rpx 30rpx;
+}
+.example-info {
+	padding: 30rpx;
+	color: #3b4144;
+	background: #ffffff;
+}
+.example-body {
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	padding: 0;
+	font-size: 14rpx;
+	background-color: #ffffff;
+}
+.example {
+	padding: 0 30rpx;
+}
+.example-info {
+
+	display: block;
+
+	padding: 30rpx;
+	color: #3b4144;
+	background-color: #ffffff;
+	font-size: 30rpx;
+}
+.example-info-text {
+	font-size: 28rpx;
+	line-height: 36rpx;
+}
+.example-body {
+	flex-direction: column;
+	padding: 30rpx;
+	background-color: #ffffff;
+}
+.word-btn-white {
+	font-size: 18px;
+	color: #FFFFFF;
+}
+.word-btn {
+
+	display: flex;
+
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	border-radius: 6px;
+	height: 48px;
+	margin: 15px;
+	background-color: #007AFF;
+}
+.word-btn--hover {
+	background-color: #4ca2ff;
+}
+.example-body {
+	padding: 20rpx 0;
+	padding-bottom: 0;
+}
+.example-box {
+	/* margin-bottom: 30rpx;
+*/
+}
+.image-box {
+
+	display: flex;
+	flex-direction: column;
+
+	height: 350rpx;
+	overflow: hidden;
+}
+.image {
+
+	width: 100%;
+	height: 100%;
+
+	flex: 1;
+}
+.content-box {
+	padding-top: 20rpx;
+}
+.content-box-text {
+	font-size: 30rpx;
+}
+.footer-box {
+
+	display: flex;
+
+	justify-content: space-between;
+	flex-direction: row;
+}
+.footer-box__item {
+	align-items: center;
+	padding: 10rpx 0;
+	font-size: 30rpx;
+	color: #666;
+}
+
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.guding {
+  width: 100%;
+  z-index: 996;
+}
+.addBtnBox {
+  position: fixed;
+  z-index: 900;
+  width: 140rpx;
+  align-items: flex-end;
+  justify-content: center;
+  height: 140rpx;
+  display: flex;
+}
+.addBtnBox .addBtn {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  background: #444857;
+  line-height: 100rpx;
+  text-align: center;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+.container999 {
+  width: 100vw;
+  font-size: 28rpx;
+  min-height: 100vh;
+  overflow: hidden;
+  color: #6B8082;
+  position: relative;
+  background-color: #f6f6f6;
+}
+.content {
+  width: 100%;
+}
+.card {
+  width: 90%;
+  height: 100%;
+  background-color: white;
+  margin: 0 auto 42rpx auto;
+  background: #FFFFFF;
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.noCard {
+  width: 90%;
+  height: 200rpx;
+  margin: auto;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999999;
+  box-shadow: 0 0 10rpx 0 rgba(0, 0, 0, 0.1);
+  border-radius: 10rpx;
+}
+.nav {
+  left: 0;
+  color: white;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-size: 24rpx;
+  background-color: #50B7EA;
+  z-index: 996;
+}
+.searchInput999 {
+  width: 90%;
+  margin: 0 auto;
+  background: white;
+  border-radius: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56rpx;
+}
+.search999 {
+  width: 32rpx;
+  height: 32rpx;
+}
+.searchBox999 {
+  width: 56rpx;
+  height: 56rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.input999 {
+  color: #999;
+  width: 80%;
+}
+

@@ -1,0 +1,134 @@
+<template>
+	<view class="user">
+		<image :src="item.avatarUrl||'../../static/user/'+(parseInt(item._id,16)%5+1)+'.jpg'" class="avatar" mode="aspectFill"></image>
+		<view class="content">
+			<view class="titleBox">
+				<text class="nickName">{{item.username}}</text>
+				<text class="time" v-if="item.timestamp">{{timestampToTime(item.timestamp)}}</text>
+			</view>
+			<text class="words">{{item.text}}</text>
+		</view>
+		<text v-if="item.num" class="msg">{{item.num}}</text>
+	</view>
+</template>
+<script>
+	export default {
+		data() {
+			return {
+				"chatList":[
+					{
+						"avatarUrl":"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3151560512,3994669159&fm=26&gp=0.jpg",
+						"msg":10,
+						"nickName":"殷桃小丸子",
+						"time":Date.now(),
+						"words":"日出于东日落雨西,日出于东日落雨西,日出于东日落雨西"
+					},
+					{
+						"avatarUrl":"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3151560512,3994669159&fm=26&gp=0.jpg",
+						"msg":100,
+						"nickName":"殷桃小丸子",
+						"time":Date.now(),
+						"words":"日出于东日落雨西,日出于东日落雨西,日出于东日落雨西"
+					},
+					{
+						"avatarUrl":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1598628748963&di=9cf74f6f6ce32f79679040b19bb58bce&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn10109%2F335%2Fw1024h911%2F20190522%2Fbdcc-hxhyiun1957825.jpg",
+						"msg":100,
+						"nickName":"殷桃小丸子",
+						"time":Date.now(),
+						"words":"日出于东日落雨西,日出于东日落雨西,日出于东日落雨西"
+					}
+				]
+			};
+		},
+		methods:{
+			//时间戳格式转月日时分秒
+			timestampToTime(nS){
+				var date=new Date(parseInt(nS));
+				var mon = date.getMonth()+1;
+				var day = date.getDate();
+				var hours = date.getHours();
+				var minu = date.getMinutes();
+				var sec = date.getSeconds();
+				var trMon = mon<10 ? '0'+mon : mon
+				var trDay = day<10 ? '0'+day : day
+				var trHours = hours<10 ? '0'+hours : hours
+				var trMinu = minu<10 ? '0'+minu : minu
+				var trSec = sec<10 ? '0'+sec : sec
+				return trMon+'-'+trDay+' '+trHours+':'+trMinu+':'+trSec;
+			},
+		},
+		props: {
+			item: {
+				type: Array,
+				default(){
+					return []
+				}
+			}
+		},
+	}
+</script>
+<style lang="scss" scoped> 
+.user{
+	width:750rpx;
+	padding:20rpx;
+	flex-direction: row;
+	border-style: solid;
+	border-bottom-width: 1px; 
+	border-color:#EEEEEE;
+}
+.avatarBox{
+	width:110rpx;
+	position: relative;
+}
+.avatar{
+	width:100rpx;
+	height:100rpx;
+	border-radius:20rpx;
+}
+.msg{
+	top:2px;
+	left:106rpx;
+	position: absolute;
+	background-color:#DD524D;
+	color:#FFFFFF;
+	width:40rpx;
+	height:40rpx;
+	font-size:26rpx;
+	text-align: center;
+	line-height:40rpx;
+	border-radius:100px;
+	text-overflow: ellipsis;
+}
+.content{
+	flex-direction: column;
+	margin-left:15rpx;
+	justify-content: space-around;
+}
+.titleBox{
+	flex-direction: row;
+	align-items:center;
+}
+.nickName{
+	height:30px;
+	line-height:30px;
+	font-size:36rpx;
+	width:400rpx;
+	lines:1;
+	text-overflow: ellipsis;
+}
+.time{
+	font-size:26rpx;
+	color:#999999;
+	height:30px;
+	line-height:30px;
+}
+.words{
+	width:500rpx;
+	lines:1;
+	height:20px;
+	line-height:20px;
+	text-overflow: ellipsis;
+	font-size:26rpx;
+	color:#999999;
+}
+</style>

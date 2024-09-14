@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "我的信息",
+  "usingComponents": {
+    "luna-upgrade": "/components/luna-upgrade/luna-upgrade",
+    "uni-badge": "/uni_modules/uni-badge/components/uni-badge/uni-badge"
+  }
+}
